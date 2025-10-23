@@ -27,7 +27,7 @@ def main():
 
     black = pygame.Color(0, 0, 0)
     player1 = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    Feild = AsteroidField()
+    AsteroidField()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #makes the X button work to close the program
@@ -39,6 +39,10 @@ def main():
             thing.update(dt)
         for thing in drawable:
             thing.draw(screen)
+        for asteroid in asteroids:
+            if asteroid.collision(player1): # for if a player collides with an asteroid
+                print("Game over!")
+                return
 
         pygame.display.flip()
         fps_limit.tick(60)
