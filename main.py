@@ -31,6 +31,7 @@ def main():
     black = pygame.Color(0, 0, 0)
     player1 = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     AsteroidField()
+    points = 0
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #makes the X button work to close the program
@@ -45,12 +46,14 @@ def main():
         for asteroid in asteroids:
             if asteroid.collision(player1): # for if a player collides with an asteroid
                 print("Game over!")
+                print(f"Hit {points} times!")
                 return
         for astroid in asteroids:
             for shot in shots:
                 if shot.collision(astroid):
-                    astroid.kill()
+                    astroid.split()
                     shot.kill()
+                    points+=1
 
         pygame.display.flip()
         fps_limit.tick(60)
