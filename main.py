@@ -20,7 +20,9 @@ def main():
             if event.type == pygame.QUIT: #makes the X button work to close the program
                 return
         screen.fill(black) 
+        player1.update(dt)
         player1.draw(screen)
+
         pygame.display.flip()
         fps_limit.tick(60)
         dt = fps_limit.tick(60)/1000
