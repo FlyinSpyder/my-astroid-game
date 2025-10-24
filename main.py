@@ -45,15 +45,30 @@ def main():
             thing.draw(screen)
         for asteroid in asteroids:
             if asteroid.collision(player1): # for if a player collides with an asteroid
-                print("Game over!")
-                print(f"Hit {points} times!")
-                return
+                if player1.lives > 0:
+                    player1.lives -= 1
+                    player1.position = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+                    player1.rotation = 0
+                    print("-1 life")
+                    print(f"You have {player1.lives} remaining")
+                    pass
+                else:
+                    print("Game over!")
+                    print(f"Hit {points} times!")
+                    return
+        
         for astroid in asteroids:
             for shot in shots:
                 if shot.collision(astroid):
                     astroid.split()
                     shot.kill()
                     points+=1
+                    player1.hits_to_next_life -=1 #counting down from 50
+                    if player1.hits_to_next_life <= 0:
+                        player1.hits_to_next_life = 50
+                        player1.lives += 1
+                        print(f"+1 life")
+                        print(f"You have {player1.lives} lives!")
 
         pygame.display.flip()
         fps_limit.tick(60)
